@@ -1,0 +1,26 @@
+system:
+  domain : mall
+  version : 1.0
+  env : "dev"
+  HttpPort: "5001"
+  Host: "localhost"
+  UploadModel: "local"
+
+mysql:
+  default:
+    dialect: "mysql"
+    dbHost: "rm-3nssj3q44i71c190q.mysql.rds.aliyuncs.com"
+    dbPort: "3306"
+    dbName: "user_db"
+    userName: "user_rw"
+    password: "COzSVQ#FY97uy4UfH%2$"
+    charset: "utf8mb4"
+    MaxIdleConns : 10
+    MaxOpenConns : 100
+    ConnMaxLifetime : 20
+redis:
+  redisDbName: 0
+  redisHost: r-3ns7huz6q0teloxquw.redis.rds.aliyuncs.com
+  redisPort: 6379
+  redisPassword: front_risk_rw:E4gb2ji580
+  
