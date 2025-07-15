@@ -8,9 +8,11 @@ import (
 var Config *Conf
 
 type Conf struct {
-	System *System
-	Mysql  map[string]*Mysql
-	Redis  *Redis
+	System *System `yaml:"system"`
+
+	MySql         map[string]*Mysql `yaml:"mysql"`
+	Redis         *Redis            `yaml:"redis"`
+	EncryptSecret *EncryptSecret    `yaml:"encryptSecret"`
 }
 
 type System struct {
@@ -40,6 +42,14 @@ type Redis struct {
 	RedisHost     string `yaml:"redisHost"`
 	RedisPort     string `yaml:"redisPort"`
 	RedisPassword string `yaml:"redisPassword"`
+}
+
+// EncryptSecret 加密的东西
+type EncryptSecret struct {
+	JwtSecret   string `yaml:"jwtSecret"`
+	EmailSecret string `yaml:"emailSecret"`
+	PhoneSecret string `yaml:"phoneSecret"`
+	MoneySecret string `yaml:"moneySecret"`
 }
 
 // InitConfig 读取当前环境配置文件

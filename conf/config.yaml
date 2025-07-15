@@ -23,4 +23,10 @@ redis:
   redisHost: r-3ns7huz6q0teloxquw.redis.rds.aliyuncs.com
   redisPort: 6379
   redisPassword: front_risk_rw:E4gb2ji580
+
+
+encryptSecret:
+  jwtSecret: "FanOne666Secret"
+  emailSecret: "EmailSecret"
+  phoneSecret: "PhoneSecret"
   
