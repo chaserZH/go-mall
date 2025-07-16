@@ -44,3 +44,18 @@ func (u *User) EncryptMoney(key string) (money string, err error) {
 
 	return
 }
+
+func (u *User) CheckPassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.PasswordDigest), []byte(password))
+	return err == nil
+}
+
+// AvatarURL 头像地址
+func (u *User) AvatarURL() string {
+	return ""
+	//if conf.Config.System.UploadModel == consts.UploadModelOss {
+	//	return u.Avatar
+	//}
+	//pConfig := conf.Config.PhotoPath
+	//return pConfig.PhotoHost + conf.Config.System.HttpPort + pConfig.AvatarPath + u.Avatar
+}

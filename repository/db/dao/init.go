@@ -24,7 +24,7 @@ var (
 func InitMySQL() error {
 	var initErr error
 	dbOnce.Do(func() {
-		mConfig := conf.Config.Mysql["default"]
+		mConfig := conf.Config.MySql["default"]
 
 		// 构建DSN
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=true&loc=Local",
@@ -75,7 +75,7 @@ func InitMySQL() error {
 		// 设置表选项
 		db = db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci")
 
-		// 数据库迁移
+		// 数据库自动建表以及迁移
 		if err := migrate(); err != nil {
 			initErr = fmt.Errorf("failed to migrate database: %v", err)
 			return

@@ -37,3 +37,26 @@ func UserRegisterHandler() gin.HandlerFunc {
 
 	}
 }
+
+// UserLoginHandler 用户登陆接口
+func UserLoginHandler() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		var req types.UserServiceReq
+		if err := ctx.ShouldBind(&req); err != nil {
+			log.LogrusObj.Infoln(err)
+			ctx.JSON(http.StatusOK, ErrorResponse(ctx, err))
+			return
+		}
+
+		l := service.GetUserSrv()
+		resp, err := l.UserLogin(ctx.Request.Context(), &req)
+
+		if err != nil {
+			log.LogrusObj.Infoln(err)
+			ctx.JSON(http.StatusInternalServerError, ErrorResponse(ctx, err))
+			return
+		}
+		ctx.JSON(http.StatusOK, ctl.RespSuccess(ctx, resp))
+
+	}
+}

@@ -2,18 +2,18 @@ system:
   domain : mall
   version : 1.0
   env : "dev"
-  HttpPort: "5001"
+  HttpPort: ":5001"
   Host: "localhost"
   UploadModel: "local"
 
 mysql:
   default:
     dialect: "mysql"
-    dbHost: "rm-3nssj3q44i71c190q.mysql.rds.aliyuncs.com"
+    dbHost: "127.0.0.1"
     dbPort: "3306"
     dbName: "user_db"
-    userName: "user_rw"
-    password: "COzSVQ#FY97uy4UfH%2$"
+    userName: "user"
+    password: "user"
     charset: "utf8mb4"
     MaxIdleConns : 10
     MaxOpenConns : 100
