@@ -11,7 +11,7 @@ func migrate() (err error) {
 	//		&model.ProductImg{}, &model.SkillProduct{},
 	//	)
 	err = db.Set("gorm:table_options", "charset=utf8mb4").
-		AutoMigrate(&model.User{})
+		AutoMigrate(&model.User{}, &model.Order{})
 
 	return
 }

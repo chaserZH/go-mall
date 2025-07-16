@@ -14,3 +14,8 @@ type Order struct {
 	Type      uint   // 1 未支付  2 已支付
 	Money     float64
 }
+
+// TableName 自定义表名
+func (Order) TableName() string {
+	return "t_order" // 指定表名为 order 而不是默认的 orders
+}

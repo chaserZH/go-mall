@@ -38,10 +38,12 @@ type Mysql struct {
 }
 
 type Redis struct {
-	RedisDbName   string `yaml:"redisDbName"`
+	RedisDbName   int    `yaml:"redisDbName"`
 	RedisHost     string `yaml:"redisHost"`
 	RedisPort     string `yaml:"redisPort"`
+	RedisUsername string `yaml:"redisUsername"`
 	RedisPassword string `yaml:"redisPassword"`
+	RedisNetwork  string `yaml:"redisNetwork"`
 }
 
 // EncryptSecret 加密的东西

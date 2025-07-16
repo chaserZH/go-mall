@@ -26,6 +26,12 @@ func NewRouter() *gin.Engine {
 		v1.POST("/user/register", api.UserRegisterHandler())
 		v1.POST("user/login", api.UserLoginHandler())
 
+		authed := v1.Group("/") // 需要登录保护
+		authed.Use(middleware.AuthMiddleware())
+		{
+			// 订单操作
+			authed.POST("orders/create", api.CreateOrderHandler())
+		}
 	}
 
 	return r

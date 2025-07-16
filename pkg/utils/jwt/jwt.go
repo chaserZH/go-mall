@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"go-mall/consts"
 	"time"
@@ -42,4 +43,40 @@ func GenerateToken(id uint, username string) (accessToken, refreshToken string, 
 	}
 
 	return accessToken, refreshToken, err
+}
+
+// ParseRefreshToken 验证用户token
+func ParseRefreshToken(aToken, rToken string) (newAToken, newRToken string, err error) {
+	accessClaim, err := ParseToken(aToken)
+	if err != nil {
+		return
+	}
+
+	refreshClaim, err := ParseToken(rToken)
+	if err != nil {
+		return
+	}
+
+	if accessClaim.ExpiresAt > time.Now().Unix() {
+		return GenerateToken(accessClaim.ID, accessClaim.Username)
+	}
+	if refreshClaim.ExpiresAt > time.Now().Unix() {
+		return GenerateToken(refreshClaim.ID, refreshClaim.Username)
+	}
+
+	// 如果两者都过期了，重新登录
+	return "", "", errors.New("身份过期，重新登陆")
+}
+
+// ParseToken 验证用户token
+func ParseToken(token string) (*Claims, error) {
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return jwtSecret, nil
+	})
+	if tokenClaims != nil {
+		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
+			return claims, nil
+		}
+	}
+	return nil, err
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go-mall/conf"
+	"go-mall/repository/cache"
 	"go-mall/repository/db/dao"
 	"go-mall/routes"
 )
@@ -21,6 +22,10 @@ func loading() {
 	if err != nil {
 		return
 	}
+
+	//初始化redis
+	cache.InitCache()
+
 	// 2. 打印一些配置信息验证配置加载成功
 	fmt.Printf("当前运行环境: %s\n", conf.Config.System.AppEnv)
 	fmt.Printf("服务监听端口: %s\n", conf.Config.System.HttpPort)
